@@ -22,4 +22,5 @@ RUN apt-get update \
     whois \
     openssh-client \
     netcat-traditional \
+    emacs-nox \
  && rm -rf /var/lib/apt/lists/*
