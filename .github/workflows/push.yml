@@ -45,6 +45,7 @@ jobs:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavor: |
+            latest=false
             suffix=-${{ matrix.name }},onlatest=false
           tags: |
             type=schedule
@@ -54,7 +55,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
-            type=raw,value=latest,enable=${{ matrix.version == env.LATEST }}
+            type=raw,value=latest,suffix=,enable=${{ matrix.version == env.LATEST }}
             #type=raw,value=${{ matrix.name }},suffix=,enable=${{ startsWith(github.ref, 'refs/tags/') }}
             #type=raw,value=${{ matrix.version }},suffix=,enable=${{ startsWith(github.ref, 'refs/tags/') }}
       - name: Set up QEMU
