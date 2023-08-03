@@ -20,10 +20,16 @@ jobs:
     strategy:
       matrix:
         include:
+          - version: "23.04"
+            name: "lunar"
           - version: "22.04"
             name: "jammy"
-          - version: "22.10"
-            name: "kinetic"
+          - version: "20.04"
+            name: "focal"
+          - version: "18.04"
+            name: "bionic"
+          - version: "16.04"
+            name: "xenial"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
