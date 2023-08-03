@@ -11,9 +11,19 @@ on:
   pull_request:
     branches:
       - 'main'
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - version: 22.04
+            name: jammy
+          - version: 22.10
+            name: kinetic
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -26,17 +36,18 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/hiperdk/utility
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavor: |
-            prefix=22.04-,onlatest=false
+            suffix=-${{ matrix.name }},onlatest=false
           tags: |
             type=schedule
             type=ref,event=branch
-            type=ref,event=pr,prefix=22.04-pr-
+            type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha,prefix=22.04-sha-
+            type=sha
+            type=raw,value=${{ matrix.name }},enable=true
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -44,7 +55,7 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
@@ -55,3 +66,4 @@ jobs:
             ${{ steps.meta.outputs.bake-file }}
           targets: default
           push: true
+          set: default.args.UBUNTU_RELEASE=${{ matrix.version }}
