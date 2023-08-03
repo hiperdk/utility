@@ -28,16 +28,15 @@ jobs:
           images: |
             ghcr.io/hiperdk/utility
           flavor: |
-            prefix=foo-,onlatest=false
-            suffix=-bar,onlatest=false
+            prefix=22.04-,onlatest=false
           tags: |
             type=schedule
             type=ref,event=branch
-            type=ref,event=pr
+            type=ref,event=pr,prefix=22.04-pr-
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha
+            type=sha,prefix=22.04-sha-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
