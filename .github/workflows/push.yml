@@ -51,5 +51,5 @@ jobs:
           files: |
             ./docker-bake.hcl
             ${{ steps.meta.outputs.bake-file }}
-          targets: build
+          targets: default
           push: true
