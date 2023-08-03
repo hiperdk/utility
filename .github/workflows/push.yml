@@ -36,8 +36,9 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
           flavor: |
-            prefix=22.04,onlatest=false
-            suffix=22.04,onlatest=false
+            latest=auto
+            prefix=22.04-,onlatest=false
+            suffix=
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
