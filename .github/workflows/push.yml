@@ -37,6 +37,7 @@ jobs:
             type=sha
           flavor: |
             prefix=22.04,onlatest=false
+            suffix=22.04,onlatest=false
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
