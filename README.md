@@ -6,7 +6,11 @@
 a small ubuntu based utility image for debugging and exploration
 
 ```bash
+# latest release
 docker pull ghcr.io/hiperdk/utility
+
+# latest nightly and or main branch build
+docker pull ghcr.io/hiperdk/utility:main
 ```
 
 Refer to [package page](https://github.com/hiperdk/utility/pkgs/container/utility) to list all tags
